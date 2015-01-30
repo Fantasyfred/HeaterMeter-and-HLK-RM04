@@ -2,7 +2,7 @@
 Adaptation of the HLK-RM04 to be used with the HeaterMeter BBQ controller
 
 1. Clone the repository from the home directory
-2. cd to HeaterMeter-and-HLK-RM04
+2. cd ~/HeaterMeter-and-HLK-RM04
 3. ./install_HLKRM04_support.sh (installs the correct OpenWRT revision and clones the HeaterMeter github repository, adds the patch files and patches the original HeaterMeter install such that HLK-RM04 support is provided)
 4. cd ~/HeaterMeter/openwrt
 5. ./install.sh HLKRM04 ~/openwrt (installs the required HeaterMeter files as well as does the required patching for HLK-RM04 support)
