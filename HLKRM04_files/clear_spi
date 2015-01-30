@@ -1,0 +1,27 @@
+#!/bin/sh /etc/rc.common
+# Clears the GPIO RST, SCK and MOSI lines, requisite for correct AVR functionality
+
+START=99
+
+start() {
+
+	echo 0 > /sys/class/gpio/export
+	echo 1 > /sys/class/gpio/export
+	echo 2 > /sys/class/gpio/export
+
+	echo out > /sys/class/gpio/gpio0/direction
+	echo out > /sys/class/gpio/gpio1/direction
+	echo out > /sys/class/gpio/gpio2/direction
+
+	echo 1 > /sys/class/gpio/gpio1/value
+	echo 1 > /sys/class/gpio/gpio2/value
+
+	echo in > /sys/class/gpio/gpio2/direction
+	echo in > /sys/class/gpio/gpio1/direction
+	echo in > /sys/class/gpio/gpio0/direction
+
+	echo 2 > /sys/class/gpio/unexport
+	echo 1 > /sys/class/gpio/unexport
+	echo 0 > /sys/class/gpio/unexport
+
+}

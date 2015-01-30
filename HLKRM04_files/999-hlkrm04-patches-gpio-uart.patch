@@ -1,0 +1,62 @@
+--- a/drivers/pinctrl/pinctrl-rt2880.c
++++ b/drivers/pinctrl/pinctrl-rt2880.c
+@@ -221,14 +224,31 @@ static int rt2880_pmx_group_enable(struc
+ 	if (func == 0) {
+ 		int i;
+ 
+-
+ 		mode |= p->groups[group].gpio << p->groups[group].shift;
+ 		/* mark the pins as gpio */
+ 		for (i = 0; i < p->groups[group].func[0].pin_count; i++)
+ 			p->gpio[p->groups[group].func[0].pins[i]] = 1;
+-	} else {
++	}
++	/* combined uartf and gpio function */
++	else if ((p->groups[group].name == "uartf") && (p->func[func]->pin_count == 4)) {
++		int i, first_gpio_pin;
++
+ 		mode |= p->func[func]->value << p->groups[group].shift;
++		if (p->func[func]->pin_first == 7) {
++			first_gpio_pin = p->func[func]->pin_first + 4;
++		}
++		else {
++			first_gpio_pin = p->func[func]->pin_first - 4;
++		}
++		/* mark the pins as gpio */
++		for (i = first_gpio_pin; i < (first_gpio_pin + 4); i++)
++			p->gpio[i] = 1;
+ 	}
++	/* other */
++	else {
++		mode |= p->func[func]->value << p->groups[group].shift;
++	}
++
+ 	rt_sysc_w32(mode, SYSC_REG_GPIO_MODE);
+
+
+
+--- a/drivers/gpio/gpio-ralink.c	2014-09-23 11:06:10.044595879 +0200
++++ b/drivers/gpio/gpio-ralink.c	2014-09-23 11:11:14.063674520 +0200
+@@ -258,6 +258,14 @@
+ 	return pinctrl_request_gpio(gpio);
+ }
+ 
++static void ralink_gpio_free(struct gpio_chip *chip, unsigned offset)
++{
++        int gpio = chip->base + offset;
++
++        pinctrl_free_gpio(gpio);
++}
++
++
+ static int ralink_gpio_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *np = pdev->dev.of_node;
+@@ -310,6 +318,7 @@
+ 	rg->chip.get = ralink_gpio_get;
+ 	rg->chip.set = ralink_gpio_set;
+ 	rg->chip.request = ralink_gpio_request;
++        rg->chip.free = ralink_gpio_free;
+ 	rg->chip.to_irq = ralink_gpio_to_irq;
+ 
+ 	/* set polarity to low for all lines */

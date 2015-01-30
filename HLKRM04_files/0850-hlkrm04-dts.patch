@@ -1,0 +1,45 @@
+--- target/linux/ramips/dts/HLKRM04.dts	2015-01-06 17:42:52.960570953 +0100
++++ target/linux/ramips/dts/HLKRM04.dts	2015-01-06 20:35:20.528590355 +0100
+@@ -8,7 +8,7 @@
+ 
+ 	memory@0 {
+ 		device_type = "memory";
+-		reg = <0x0 0x1000000>;
++		reg = <0x0 0x2000000>;
+ 	};
+ 
+ 	chosen {
+@@ -59,7 +59,7 @@
+ 	pinctrl {
+ 		state_default: pinctrl0 {
+ 			gpio {
+-				ralink,group = "jtag";
++				ralink,group = "i2c", "jtag";
+ 				ralink,function = "gpio";
+ 			};
+ 		};
+@@ -80,24 +80,4 @@
+ 	ohci@101c1000 {
+ 		status = "okay";
+ 	};
+-
+-	gpio-keys-polled {
+-		compatible = "gpio-keys-polled";
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		poll-interval = <20>;
+-		wps {
+-			label = "reset";
+-			gpios = <&gpio0 14 1>;
+-			linux,code = <0x198>;
+-		};
+-	};
+-
+-	gpio-leds {
+-		compatible = "gpio-leds";
+-		power {
+-			label = "hlk-rm04:red:power";
+-			gpios = <&gpio0 0 1>;
+-		};
+-	};
+ };

@@ -1,0 +1,11 @@
+--- target/linux/ramips/dts/rt5350.dtsi	2015-01-06 17:42:52.960570953 +0100
++++ target/linux/ramips/dts/rt5350.dtsi	2015-01-06 20:19:19.104588645 +0100
+@@ -247,7 +247,7 @@
+ 		uartf_pins: uartf {
+ 			uartf {
+ 				ralink,group = "uartf";
+-				ralink,function = "uartf";
++				ralink,function = "gpio uartf";
+ 			};
+ 		};
+ 		spi_cs1: spi1 {

@@ -1,0 +1,53 @@
+--- avrupdate	2015-01-19 19:46:55.315889011 +0100
++++ avrupdate	2015-01-18 17:13:23.087218948 +0100
+@@ -3,11 +3,40 @@
+ . $IPKG_INSTROOT/lib/functions.sh
+ EXITCODE=0
+ 
++
+ platform_setup_DEFAULT() {
+-  DUDE_OPTS="-b 115200"
++  FUSES=`hmdude -v -b 128 -P/dev/spidev0.0 |\
++     sed -n 's/^Low: 0x\(..\) High: 0x\(..\) Ext: 0x\(..\).*/\1\2\3/p'`
++  echo -n AVR fuses $FUSES
++ 
++  case "$FUSES" in
++    62d9ff|62d907)
++      echo " blank ATmega chip detected, flashing default"
++      hmdude -v -b 128 -P/dev/spidev0.0 \
++        -U/lib/firmware/hm.hex \
++        -U lfuse:w:0xff -U hfuse:w:0xd7 -U efuse:w:0x05
++      [ "$HEX" = "/lib/firmware/hm.hex" ] && HEX=""
++      ;;
++    ffdf*)
++      echo " Arduino fuses, switching to preserve EEPROM"
++      hmdude -P/dev/spidev0.0 \
++        -U lfuse:w:0xff -U hfuse:w:0xd7 -U efuse:w:0x05
++      ;;
++    "")
++      echo " ERROR"
++      EXITCODE=19
++      ;;
++    *)
++      echo " OK"
++      ;;
++  esac 
++  
++  DUDE_OPTS="-v -b 128 -P/dev/spidev0.0"
++  echo platform setup DEFAULT
+ }
+ 
+ platform_setup_BCM2708() {
++  echo platform setup BCM2708
+   lsmod | grep spi_bcm2708 > /dev/null || {
+     echo Loading SPI modules...
+     insmod spidev
+@@ -26,7 +55,7 @@ platform_setup_BCM2708() {
+   case "$FUSES" in
+     62d9ff|62d907)
+       echo " blank ATmega chip detected, flashing default"
+-      hmdude -v -b 128 -P/dev/spidev0.0 \
++      hmdude -v -v -v -v -v -b 128 -P/dev/spidev0.0 \
+         -U/lib/firmware/hm.hex \
+         -U lfuse:w:0xff -U hfuse:w:0xd7 -U efuse:w:0x05
+       [ "$HEX" = "/lib/firmware/hm.hex" ] && HEX=""

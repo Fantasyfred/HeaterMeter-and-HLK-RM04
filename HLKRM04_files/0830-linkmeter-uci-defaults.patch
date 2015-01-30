@@ -1,0 +1,42 @@
+--- linkmeter.uci-defaults.orig	2015-01-21 10:17:38.278800983 +0100
++++ linkmeter.uci-defaults	2015-01-21 08:30:00.272349225 +0100
+@@ -23,6 +23,14 @@ if [ "$HARDWARE_MODEL" = "BCM2708" ] ; t
+   LUCID_THREADS=30
+   LUCID_HTTPS=1
+   LUCI_CCACHE=1
++ elif [ "$HARDWARE_MODEL" = "HILINK HLK-RM04" ] ; then
++  SERIAL_DEVICE="/dev/ttyS0"
++  STASHPATH="/root"
++  AUTOBACK_ACTIVE=0
++  AUTOBACK_INACTIVE=0
++  LUCID_THREADS=2
++  LUCID_HTTPS=0
++  LUCI_CCACHE=0
+ else
+   SERIAL_DEVICE="/dev/ttyS1"
+   STASHPATH="/root"
+@@ -83,6 +91,13 @@ if [ "$INSTALL_PARAM" = "restore" -o "$I
+   fi
+ fi
+ 
++# Set default ip, for some reason not done in config
++if [ "$HARDWARE_MODEL" = "HILINK HLK-RM04" ] ; then
++  uci set network.lan.ipaddr='192.168.2.1'
++  uci commit network
++fi
++
++
+ if [ "$INSTALL_PARAM" = "new" ] ; then
+   uci set lucid.http.nokeepalive=0
+   uci set lucid.https.nokeepalive=0
+@@ -90,9 +105,7 @@ if [ "$INSTALL_PARAM" = "new" ] ; then
+   uci commit luci
+ 
+   # On applicable platforms, avrupdate loads HeaterMeter onto the AVR
+-  # pasing the firmware file forces it to overwrite even if AVR already
+-  # contains HeaterMeter
+-  avrupdate /lib/firmware/hm.hex
++  avrupdate
+ 
+   if [ "$HARDWARE_MODEL" = "BCM2708" ] ; then
+     # Disable dhcp server on the lan interface

@@ -1,0 +1,11 @@
+--- /package/utils/busybox/config/default	2015-01-20 16:22:04.000000000 +0100
++++ /package/utils/busybox/config/default	2015-01-20 19:47:27.110197344 +0100
+@@ -773,7 +773,7 @@ CONFIG_START_STOP_DAEMON=y
+ # CONFIG_STAT is not set
+ # CONFIG_STATIC is not set
+ CONFIG_STRINGS=y
+-# CONFIG_STTY is not set
++CONFIG_STTY=y
+ # CONFIG_SU is not set
+ CONFIG_SUBST_WCHAR=0
+ # CONFIG_SULOGIN is not set

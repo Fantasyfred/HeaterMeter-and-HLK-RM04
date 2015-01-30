@@ -1,0 +1,24 @@
+--- linkmeterd.lua	2015-01-20 19:52:52.869001295 +0100
++++ linkmeterd.lua	2015-01-21 07:39:18.278637618 +0100
+@@ -343,14 +343,14 @@ local function postDeviceData(dd)
+     serial = ""
+   end
+ 
+-  local uptime = sys.uptime()
+-  local hostname = sys.hostname()
+-  dd = dd ..
+-    ('],"serial":"%s","revision":"%s","model":"%s","uptime":%s,"hostname":"%s"}'):format(
+-    serial, revision, hardware, uptime, hostname)
++--  local uptime = sys.uptime()
++--  local hostname = sys.hostname()
++--  dd = dd ..
++--    ('],"serial":"%s","revision":"%s","model":"%s","uptime":%s,"hostname":"%s"}'):format(
++--    serial, revision, hardware, uptime, hostname)
+ 
+-  os.execute(("curl --silent -o /dev/null -d devicedata='%s' %s &"):format(
+-   dd, 'http://heatermeter.com/devices/'));
++--  os.execute(("curl --silent -o /dev/null -d devicedata='%s' %s &"):format(
++--   dd, 'http://heatermeter.com/devices/'));
+ end
+ 
+ local lastIpCheck
