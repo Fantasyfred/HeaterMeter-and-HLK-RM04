@@ -10,4 +10,4 @@ Adaptation of the HLK-RM04 to be used with the HeaterMeter BBQ controller
 7. make menuconfig (do nothing, just save and exit)
 8. make
 9. Transfer ~/openwrt/bin/ramips/openwrt-ramips-rt305x-hlk-rm04-squashfs-sysupgrade.bin to the HLK-RM04 at ~/tmp using scp
-10. sysupgrade /tmp/ramips/openwrt-ramips-rt305x-hlk-rm04-squashfs-sysupgrade.bin
+10. On the HLK-RM04: sysupgrade /tmp/ramips/openwrt-ramips-rt305x-hlk-rm04-squashfs-sysupgrade.bin
