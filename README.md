@@ -23,6 +23,8 @@ Software
 
 10. On the HLK-RM04: sysupgrade /tmp/ramips/openwrt-ramips-rt305x-hlk-rm04-squashfs-sysupgrade.bin
 
+
+
 Wiring (HLK-RM04 -> HeaterMeter)
 
 2, GND: -> GND
