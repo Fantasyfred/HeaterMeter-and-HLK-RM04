@@ -2,8 +2,6 @@
 Adaptation of the HLK-RM04 to be used with the HeaterMeter BBQ controller
 
 Software
-<<<<<<< HEAD
-Software
 1. Clone this repository to the home directory
 2. cd ~/HeaterMeter-and-HLK-RM04
 3. ./install_HLKRM04_support.sh (installs the correct OpenWRT revision and clones the HeaterMeter github repository, adds the patch files and patches the original HeaterMeter install such that HLK-RM04 support is provided)
@@ -24,7 +22,4 @@ Wiring (HLK-RM04 -> HeaterMeter)
 25, GPIO14: -> MISO
 26, TX2: -> RX
 28, +5V: -> +5V if Heatermeter is used instead of Arduino Pro Mini
-<<<<<<< HEAD
 
-=======
->>>>>>> 11212aa8a7f4c687e44dad065fffcd1c86f5435a
