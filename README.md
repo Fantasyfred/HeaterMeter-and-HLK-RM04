@@ -2,6 +2,7 @@
 Adaptation of the HLK-RM04 to be used with the HeaterMeter BBQ controller
 
 Software
+
 1. Clone this repository to the home directory
 
 2. cd ~/HeaterMeter-and-HLK-RM04
