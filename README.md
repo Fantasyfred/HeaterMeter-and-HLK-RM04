@@ -13,13 +13,21 @@ Software
 9. Transfer ~/openwrt/bin/ramips/openwrt-ramips-rt305x-hlk-rm04-squashfs-sysupgrade.bin to the HLK-RM04 at ~/tmp using scp 10. On the HLK-RM04: sysupgrade /tmp/ramips/openwrt-ramips-rt305x-hlk-rm04-squashfs-sysupgrade.bin
 
 Wiring (HLK-RM04 -> HeaterMeter)
-2, GND: -> GND
-4, 3.3V: -> VCC if Arduino Pro Mini is used instead of HeaterMeter
-8, GPIO1: -> SCK
-9, GPIO2: -> MOSI
-10, GPIO0: -> RST
-22, RX2: -> TX
-25, GPIO14: -> MISO
-26, TX2: -> RX
-28, +5V: -> +5V if Heatermeter is used instead of Arduino Pro Mini
 
+2, GND: -> GND
+
+4, 3.3V: -> VCC if Arduino Pro Mini is used instead of HeaterMeter
+
+8, GPIO1: -> SCK
+
+9, GPIO2: -> MOSI
+
+10, GPIO0: -> RST
+
+22, RX2: -> TX
+
+25, GPIO14: -> MISO
+
+26, TX2: -> RX
+
+28, +5V: -> +5V if Heatermeter is used instead of Arduino Pro Mini
